@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de administración | ERP Recursos</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%AB%3C/text%3E%3C/svg%3E"
+    />
+    <script>
+      tailwind = { config: { darkMode: "class" } };
+      (function () {
+        const stored = localStorage.getItem("erp_theme_mode");
+        const mode = stored === "light" || stored === "dark"
+          ? stored
+          : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        const isDark = mode === "dark";
+        document.documentElement.classList.toggle("dark", isDark);
+      })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" crossorigin src="/assets/admin-7ApJ9Bu6.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/theme-_ZweiSz6.js">
+    <link rel="stylesheet" crossorigin href="/assets/theme-BqxzABV_.css">
+  </head>
+  <body class="app-body text-slate-800 dark:text-slate-100">
+    <main class="mx-auto min-h-screen max-w-7xl p-4 md:p-8">
+      <header class="app-header mb-6 rounded-2xl p-6 text-white shadow-lg">
+        <div class="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h1 class="text-2xl font-bold md:text-3xl">Panel de administración</h1>
+            <p id="admin-subtitle" class="mt-2 text-slate-300">Cargando instituto... | Registro del uso de recursos</p>
+          </div>
+          <div class="flex items-center gap-2 text-slate-300">
+            <span class="text-sm">☀️</span>
+            <label class="relative inline-flex cursor-pointer items-center">
+              <input id="theme-toggle-admin" type="checkbox" class="peer sr-only" />
+              <span class="h-6 w-11 rounded-full bg-slate-600 transition peer-checked:bg-indigo-500"></span>
+              <span class="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition peer-checked:translate-x-5"></span>
+            </label>
+            <span class="text-sm">🌙</span>
+          </div>
+        </div>
+      </header>
+
+      <section id="admin-config-loader" class="admin-panel app-card mx-auto mt-10 max-w-2xl rounded-2xl p-6 shadow-sm backdrop-blur">
+        <h2 class="text-xl font-semibold">Cargar configuración</h2>
+        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Primero carga el archivo JSON para habilitar el acceso administrador.</p>
+        <div class="mt-4 grid gap-4 md:grid-cols-2">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium">URL JSON</label>
+            <input id="boot-config-url" type="url" placeholder="https://.../config.json" class="w-full rounded-lg border border-slate-300 px-3 py-2" />
+            <button id="boot-download-json" type="button" class="btn primary w-full">
+              Descarga JSON
+            </button>
+            <p class="text-xs text-slate-500 dark:text-slate-300">
+              Abre la Web App en otra pestaña para confirmar tu cuenta @ieselconvento.es. Si el botón falla al principio, vuelve a pulsarlo después de autenticarte; verás el JSON descargado en el área inferior.
+            </p>
+            <button
+              id="boot-show-json-editor"
+              type="button"
+              class="text-left text-xs text-slate-500 underline hover:text-slate-700 dark:text-slate-300"
+            >
+              Pegar JSON manualmente
+            </button>
+            <div id="boot-config-json-panel" class="space-y-2 hidden">
+              <label class="block text-sm font-medium">JSON descargado</label>
+              <textarea id="boot-config-text" rows="10" class="w-full rounded-lg border border-slate-300 bg-white p-2 text-xs font-mono text-slate-700 dark:bg-slate-900 dark:text-slate-100"></textarea>
+              <button id="boot-load-config-text" type="button" class="btn primary w-full">
+                Cargar configuración
+              </button>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="block text-sm font-medium">Archivo JSON</label>
+            <input id="boot-config-file" type="file" accept=".json,application/json" class="block w-full text-sm" />
+            <button id="boot-load-config-file" type="button" class="btn primary w-full">
+              Cargar archivo
+            </button>
+          </div>
+        </div>
+        <p id="boot-config-feedback" class="mt-3 text-sm text-slate-600 dark:text-slate-300"></p>
+      </section>
+
+      <section id="admin-login" class="admin-panel app-card mx-auto mt-10 hidden max-w-md rounded-2xl p-6 shadow-sm backdrop-blur">
+        <h2 class="text-xl font-semibold">Acceso administrador</h2>
+        <form id="login-form" class="mt-4 space-y-3">
+          <input
+            id="admin-password"
+            type="password"
+            placeholder="Contrasena de administrador"
+            required
+            class="w-full rounded-lg border border-slate-300 px-3 py-2"
+          />
+          <button id="login-button" type="submit" class="btn primary w-full">
+            Acceso administrador
+          </button>
+        </form>
+        <p id="login-feedback" class="mt-3 text-sm text-slate-600 dark:text-slate-300"></p>
+      </section>
+
+      <div id="admin-app" class="admin-panel hidden">
+        <nav id="admin-tabs" class="app-card mb-5 flex flex-wrap gap-2 rounded-2xl p-3 shadow-sm backdrop-blur">
+          <button class="tab-btn active rounded-full border border-slate-300 px-4 py-2 text-sm font-medium dark:border-slate-600 dark:bg-slate-800" data-tab-target="config">Configuracion</button>
+          <button class="tab-btn rounded-full border border-slate-300 px-4 py-2 text-sm font-medium dark:border-slate-600 dark:bg-slate-800" data-tab-target="acceso">Acceso alumnado</button>
+          <button class="tab-btn rounded-full border border-slate-300 px-4 py-2 text-sm font-medium dark:border-slate-600 dark:bg-slate-800" data-tab-target="validacion">Registro de equipos</button>
+          <button class="tab-btn rounded-full border border-slate-300 px-4 py-2 text-sm font-medium dark:border-slate-600 dark:bg-slate-800" data-tab-target="auditoria">Auditoria</button>
+        </nav>
+
+        <section class="app-card tab-panel active rounded-2xl p-5 shadow-sm backdrop-blur md:p-6" data-tab-panel="config">
+          <form id="session-form" class="space-y-4">
+            <div class="form-grid">
+              <label>
+                Docente
+                <select id="docente" required></select>
+              </label>
+              <label>
+                Fecha
+                <input id="fecha" type="date" required />
+              </label>
+              <label>
+                Hora
+                <select id="hora" required>
+                  <option value="8:00-9:00">1º hora (8:00-9:00)</option>
+                  <option value="9:00-10:00">2º hora (9:00-10:00)</option>
+                  <option value="10:00-11:00">3º hora (10:00-11:00)</option>
+                  <option value="11:00-11:30">Recreo (11:00-11:30)</option>
+                  <option value="11:30-12:30">4º hora (11:30-12:30)</option>
+                  <option value="12:30-13:30">5º hora (12:30-13:30)</option>
+                  <option value="13:30-14:30">6º hora (13:30-14:30)</option>
+                </select>
+              </label>
+              <label class="flex items-center gap-2 pt-6">
+                <input id="puestos-fijos-curso" type="checkbox" class="h-4 w-4" />
+                <span>Puestos fijos para todo el curso</span>
+              </label>
+            </div>
+            <div class="form-grid">
+              <label>
+                URL inicio (post-registro)
+                <input id="url-inicio" type="url" placeholder="https://ieselconvento.es" />
+              </label>
+            </div>
+            <div class="form-grid">
+              <label>
+                Curso
+                <select id="curso"></select>
+              </label>
+              <label>
+                Unidad
+                <select id="unidad"></select>
+              </label>
+              <label>
+                Asignatura
+                <select id="asignatura"></select>
+              </label>
+              <label id="asignatura-otra-wrap" class="hidden">
+                Otra asignatura
+                <input id="asignatura-otra" placeholder="Escribe una asignatura nueva" />
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <label>
+                Ubicacion
+                <select id="ubicacion"></select>
+              </label>
+              <label>
+                Recurso
+                <select id="recurso"></select>
+              </label>
+            </div>
+
+            <label class="full">
+              <span id="students-label">Alumnos Curso-Unidad Asignatura</span>
+              <textarea id="students-list" rows="8" required></textarea>
+            </label>
+
+            <button type="submit" class="btn primary full">Actualizar sesion</button>
+          </form>
+          <p id="session-feedback" class="feedback"></p>
+        </section>
+
+        <section class="app-card tab-panel rounded-2xl p-5 shadow-sm backdrop-blur md:p-6" data-tab-panel="acceso">
+          <div>
+            <p class="mb-2">Código de acceso de sesión (púlsalo para copiar URL):</p>
+            <button id="access-code-btn" class="mb-3 w-full rounded-xl border-2 border-dashed border-slate-400 bg-slate-50 p-4 text-3xl font-extrabold tracking-wider text-slate-900">
+              SIN-CODIGO
+            </button>
+            <div class="mb-3">
+              <button id="open-student-url" class="btn primary w-full">
+                Abrir URL para el registro
+              </button>
+            </div>
+            <p>Comparte este enlace para que el alumnado se registre:</p>
+            <input id="student-url" readonly />
+            <div class="inline-form">
+              <button id="copy-url" class="btn">Copiar URL</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-card tab-panel rounded-2xl p-5 shadow-sm backdrop-blur md:p-6" data-tab-panel="validacion">
+          <p id="validation-summary" class="feedback"></p>
+          <div id="validation-header" class="app-subcard mb-4 rounded-xl p-4"></div>
+          <div class="mb-3">
+            <button id="add-registration" type="button" class="btn primary">Añadir registro</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Alumno</th>
+                  <th>Recurso</th>
+                  <th>Incidencia</th>
+                  <th>Observacion</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="assignment-table"></tbody>
+            </table>
+          </div>
+          <button id="go-bulk-submit" type="button" class="btn primary mt-4">Enviar datos al formulario</button>
+          <p id="bulk-feedback" class="feedback"></p>
+        </section>
+
+        <section class="app-card tab-panel rounded-2xl p-5 shadow-sm backdrop-blur md:p-6" data-tab-panel="auditoria">
+          <form id="audit-form" class="form-grid">
+            <label>
+              CSV de registros
+              <input id="audit-file" type="file" accept=".csv,text/csv" required />
+            </label>
+            <button id="audit-load-history" type="submit" class="btn full">Cargar historial</button>
+          </form>
+          <div class="mt-3 inline-form">
+            <button id="audit-clear-filters" type="button" class="btn" title="Limpiar filtros">🗑️ Limpiar filtros</button>
+            <button id="audit-print-report" type="button" class="btn">Imprimir informe</button>
+          </div>
+          <div id="audit-results" class="table-wrap"></div>
+        </section>
+      </div>
+
+      <dialog id="access-code-modal" class="access-code-modal p-0">
+        <div class="access-code-modal__content">
+          <p class="access-code-modal__label">Código de acceso</p>
+          <p id="modal-access-code" class="access-code-modal__code">00000</p>
+          <button id="close-access-code-modal" class="btn primary mt-6">Cerrar</button>
+        </div>
+      </dialog>
+
+      <dialog id="bulk-success-modal" class="rounded-2xl border border-slate-300 bg-white p-0 dark:border-slate-700 dark:bg-slate-900">
+        <div class="p-6">
+          <div class="mb-3 flex items-center justify-between gap-3">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Envio completado</h3>
+            <button id="close-bulk-success-modal" type="button" class="btn">Cerrar</button>
+          </div>
+          <p class="mb-3 text-slate-800 dark:text-slate-200">Los datos se han enviado correctamente al formulario.</p>
+          <pre id="bulk-success-summary" class="max-h-80 overflow-auto rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"></pre>
+        </div>
+      </dialog>
+
+      <dialog id="add-registration-modal" class="rounded-2xl border border-slate-300 bg-white p-0 dark:border-slate-700 dark:bg-slate-900">
+        <form id="add-registration-form" method="dialog" class="p-6">
+          <div class="mb-3 flex items-center justify-between gap-3">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Añadir registro de uso</h3>
+            <button id="close-add-registration-modal" type="button" class="btn">Cerrar</button>
+          </div>
+          <p id="add-registration-session-info" class="mb-4 text-sm text-slate-700 dark:text-slate-300"></p>
+          <div class="grid gap-3 md:grid-cols-2">
+            <label>
+              Alumno
+              <input id="add-registration-student" required class="w-full rounded-lg border border-slate-300 px-3 py-2" placeholder="Nombre del alumno" />
+            </label>
+            <label>
+              Recurso
+              <select id="add-registration-resource" class="w-full rounded-lg border border-slate-300 px-3 py-2"></select>
+            </label>
+            <label>
+              Incidencia
+              <select id="add-registration-incident" class="w-full rounded-lg border border-slate-300 px-3 py-2">
+                <option value="no">No</option>
+                <option value="si">Si</option>
+              </select>
+            </label>
+            <label class="md:col-span-2">
+              Observacion
+              <textarea id="add-registration-observation" rows="3" class="w-full rounded-lg border border-slate-300 px-3 py-2" disabled></textarea>
+            </label>
+          </div>
+          <div class="mt-4 flex justify-end gap-2">
+            <button id="save-add-registration" type="submit" class="btn primary">Guardar registro</button>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog id="audit-equipos-modal" class="rounded-2xl border border-slate-300 bg-white p-0 dark:border-slate-700 dark:bg-slate-900">
+        <div class="p-6">
+          <div class="mb-3 flex items-center justify-between gap-3">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Detalle de equipos</h3>
+            <button id="close-audit-equipos-modal" type="button" class="btn">Cerrar</button>
+          </div>
+          <div id="audit-equipos-content" class="table-wrap"></div>
+        </div>
+      </dialog>
+    </main>
+  </body>
+</html>
