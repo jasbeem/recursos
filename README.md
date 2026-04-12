@@ -1,10 +1,11 @@
-# ERP Educativo de Recursos TIC
+# Registro de recursos
 
 Aplicacion multipagina con Vite para gestionar el uso de portatiles en clase, separando claramente la vista de alumnado y el panel de profesor.
 
 ## Vistas
 
-- `index.html` (Alumno): seleccion de nombre + PC y envio de registro.
+- `index.html` (Inicio): acceso a docente y estudiante.
+- `student.html` (Alumno): seleccion de nombre + PC y envio de registro.
 - `admin.html` (Profesor): configuracion de sesion, validacion en cuadrilla de PCs, envio masivo a Google Forms, importador de PDFs a JSON y consulta historica de incidencias.
 
 ## Arquitectura funcional
@@ -52,7 +53,8 @@ Aplicacion multipagina con Vite para gestionar el uso de portatiles en clase, se
 
 ## Estructura del proyecto
 
-- `index.html` -> Vista alumno.
+- `index.html` -> Vista inicio.
+- `student.html` -> Vista alumno.
 - `admin.html` -> Vista profesor.
 - `src/student-main.js` -> Logica alumno.
 - `src/admin-main.js` -> Logica admin.
@@ -140,6 +142,22 @@ Formato esperado del JSON remoto (ejemplo en `examples/session.example.json`):
 - O un array de sesiones.
 
 Si hay `sid` en la URL del alumno, se intentara seleccionar la sesion remota con ese `sessionId`.
+
+## Sesion remota por codigo (Apps Script)
+
+Si quieres que el alumnado entre desde otro navegador solo con el codigo de 5 digitos, puedes guardar la sesion en un Web App de Apps Script:
+
+1. Crea un proyecto Apps Script y pega `examples/apps-script-session-store.gs`.
+2. Despliega como Web App (acceso: Anyone with the link).
+3. Copia la URL de despliegue y añade en tu `app_config.json` o config remota:
+
+```json
+{
+  "session_api_url": "https://script.google.com/macros/s/XXXX/exec"
+}
+```
+
+El panel de profesor guardara la sesion en Apps Script y el alumnado podra acceder con el codigo (sin necesidad de `sessionUrl`).
 
 ## Tramos de hora
 

@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro de recursos</title>
+    <title>Inicio | Registro de recursos</title>
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8C%3C/text%3E%3C/svg%3E"
     />
     <script>
       (function () {
@@ -18,25 +18,22 @@
         document.documentElement.classList.toggle("dark", isDark);
       })();
     </script>
-    <script type="module" crossorigin src="./assets/main-CtPE7hiU.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/theme-DrFbQEeZ.js">
-    <link rel="stylesheet" crossorigin href="./assets/theme-zyQ0mI6z.css">
+    <script type="module" crossorigin src="./assets/main-BGytd85a.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/theme-6kUjtpRg.js">
+    <link rel="stylesheet" crossorigin href="./assets/theme-BGQzqlr7.css">
   </head>
   <body class="app-body text-slate-800 dark:text-slate-100">
     <main class="mx-auto min-h-screen max-w-6xl p-4 md:p-8">
       <header class="app-header mb-6 rounded-2xl p-6 text-white shadow-lg">
         <div class="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h1 class="text-2xl font-bold md:text-3xl">Registro de Alumno</h1>
-            <p id="student-subtitle" class="mt-2 text-slate-300">Cargando configuracion...</p>
-            <p class="mt-2 text-xs text-slate-400">
-              <a href="./admin.html" class="underline hover:text-slate-200">Administración</a>
-            </p>
+            <h1 class="text-2xl font-bold md:text-3xl">Registro de recursos</h1>
+            <p class="mt-2 text-slate-300">Registro rápido y centralizado del uso de recursos del aula.</p>
           </div>
           <div class="flex items-center gap-2 text-slate-300">
             <span class="text-sm">☀️</span>
             <label class="relative inline-flex cursor-pointer items-center">
-              <input id="theme-toggle-student" type="checkbox" class="peer sr-only" />
+              <input id="theme-toggle-landing" type="checkbox" class="peer sr-only" />
               <span class="h-6 w-11 rounded-full bg-slate-600 transition peer-checked:bg-indigo-500"></span>
               <span class="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition peer-checked:translate-x-5"></span>
             </label>
@@ -45,88 +42,30 @@
         </div>
       </header>
 
-      <section id="code-gate" class="app-card hidden mx-auto max-w-md rounded-2xl p-6 shadow-sm backdrop-blur">
-        <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Acceso de alumnado</h2>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Introduce el código de 5 dígitos que te ha dado el profesor.</p>
-        <form id="code-gate-form" class="mt-4 space-y-3">
-          <input id="code-gate-input" inputmode="numeric" maxlength="5" placeholder="12345" required class="w-full rounded-lg border border-slate-300 px-3 py-2" />
-          <button type="submit" class="btn primary w-full">Entrar</button>
-        </form>
-        <p id="code-gate-feedback" class="mt-3 text-sm text-slate-600 dark:text-slate-300"></p>
+      <section class="app-card rounded-2xl p-6 shadow-sm backdrop-blur">
+        <h2 class="text-xl font-semibold text-blue-950 dark:text-slate-100">¿Qué hace esta app?</h2>
+        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          Esta aplicación organiza el registro de uso de equipos y recursos. El docente configura la sesión
+          (curso, asignatura, recurso y alumnado) y el estudiante confirma su uso de manera guiada.
+        </p>
       </section>
 
-      <dialog id="invalid-code-modal" class="app-modal rounded-2xl border border-slate-300 bg-white p-0 dark:border-slate-700 dark:bg-slate-900">
-        <div class="p-6">
-          <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Código no válido</h3>
-          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">El código introducido no existe. Vuelve a introducir un código correcto.</p>
-          <button id="close-invalid-code-modal" class="btn primary mt-4">Reintentar</button>
-        </div>
-      </dialog>
-
-      <section id="student-session-section" class="app-card session-data rounded-2xl p-5 shadow-sm backdrop-blur md:p-6">
-        <h2 class="text-lg font-semibold text-blue-950 dark:text-slate-100">Informe de sesion</h2>
-        <div class="mt-4 grid gap-3 md:grid-cols-3">
-          <article class="app-subcard rounded-lg p-4">
-            <p class="text-xs text-blue-900 dark:text-slate-300">Profesor</p>
-            <p id="student-teacher" class="mt-1 font-semibold text-blue-950 dark:text-slate-100"></p>
-            <p class="mt-3 text-xs text-blue-900 dark:text-slate-300">Dia</p>
-            <p id="student-date" class="mt-1 font-semibold text-blue-950 dark:text-slate-100"></p>
-            <p class="mt-3 text-xs text-blue-900 dark:text-slate-300">Hora</p>
-            <p id="student-time" class="mt-1 font-semibold text-blue-950 dark:text-slate-100"></p>
-          </article>
-          <article class="app-subcard rounded-lg p-4">
-            <p class="text-xs text-blue-900 dark:text-slate-300">Curso</p>
-            <p id="student-course" class="mt-1 font-semibold text-blue-950 dark:text-slate-100"></p>
-            <p class="mt-3 text-xs text-blue-900 dark:text-slate-300">Letra</p>
-            <p id="student-unit" class="mt-1 font-semibold text-blue-950 dark:text-slate-100"></p>
-            <p class="mt-3 text-xs text-blue-900 dark:text-slate-300">Asignatura</p>
-            <p id="student-subject" class="mt-1 font-semibold text-blue-950 dark:text-slate-100"></p>
-          </article>
-          <article class="app-subcard rounded-lg p-4">
-            <p class="text-xs text-blue-900 dark:text-slate-300">Ubicacion</p>
-            <p id="student-location" class="mt-1 font-semibold text-blue-950 dark:text-slate-100"></p>
-            <p class="mt-3 text-xs text-blue-900 dark:text-slate-300">Recurso</p>
-            <p id="student-resource" class="mt-1 font-semibold text-blue-950 dark:text-slate-100"></p>
-          </article>
-        </div>
-      </section>
-
-      <section id="student-register-section" class="app-card mt-6 rounded-2xl p-5 shadow-sm backdrop-blur md:p-6">
-        <h2 class="text-lg font-semibold text-blue-950 dark:text-slate-100">Registrar recurso</h2>
-        <form id="student-form" class="mt-4 grid gap-4 md:grid-cols-2">
-          <label class="block">
-            <span class="mb-1 block text-sm font-medium text-blue-950 dark:text-slate-300">Nombre alumno</span>
-            <select id="student-name" name="studentName" required class="w-full rounded-lg border border-slate-300 px-3 py-2"></select>
-          </label>
-
-          <label id="student-name-other-wrap" class="block hidden">
-            <span class="mb-1 block text-sm font-medium text-blue-950 dark:text-slate-300">Nombre alumno (Otro)</span>
-            <input id="student-name-other" name="studentNameOther" class="w-full rounded-lg border border-slate-300 px-3 py-2" />
-          </label>
-
-          <label class="block">
-            <span class="mb-1 block text-sm font-medium text-blue-950 dark:text-slate-300">Recurso</span>
-            <select id="student-resource-input" name="resourceInput" required class="w-full rounded-lg border border-slate-300 px-3 py-2"></select>
-          </label>
-
-          <label class="block">
-            <span class="mb-1 block text-sm font-medium text-blue-950 dark:text-slate-300">Incidencia</span>
-            <select id="has-incident" name="hasIncident" class="w-full rounded-lg border border-slate-300 px-3 py-2">
-              <option value="no">No</option>
-              <option value="si">Si</option>
-            </select>
-          </label>
-
-          <label class="block md:col-span-2">
-            <span class="mb-1 block text-sm font-medium text-blue-950 dark:text-slate-300">Descripción de la incidencia</span>
-            <textarea id="student-incident" name="incident" rows="3" placeholder="Ej: teclado dañado, pantalla con fallo..." class="w-full rounded-lg border border-slate-300 px-3 py-2" disabled></textarea>
-          </label>
-
-          <button type="submit" class="btn primary md:col-span-2">
-            Registrar Recurso
-          </button>
-        </form>
-        <p id="student-feedback" class="mt-3 text-sm text-slate-600 dark:text-slate-300"></p>
+      <section class="mt-6 grid gap-4 md:grid-cols-2">
+        <article class="app-card rounded-2xl p-6 shadow-sm backdrop-blur">
+          <h3 class="text-lg font-semibold text-blue-950 dark:text-slate-100">Docente (Administración)</h3>
+          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+            Entra como administrador para cargar la configuración, crear la sesión y generar el código/URL
+            de acceso del alumnado.
+          </p>
+          <a href="./admin.html" class="btn primary mt-4 inline-flex items-center justify-center">Acceder como docente</a>
+        </article>
+        <article class="app-card rounded-2xl p-6 shadow-sm backdrop-blur">
+          <h3 class="text-lg font-semibold text-blue-950 dark:text-slate-100">Estudiante</h3>
+          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+            Entra como estudiante para introducir el código de la sesión y registrar el recurso asignado.
+          </p>
+          <a href="./student.html" class="btn primary mt-4 inline-flex items-center justify-center">Acceder como estudiante</a>
+        </article>
       </section>
     </main>
   </body>
