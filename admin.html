@@ -18,10 +18,9 @@
         document.documentElement.classList.toggle("dark", isDark);
       })();
     </script>
-    <script type="module" crossorigin src="./assets/admin-BBHlW9d_.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/theme-B8HXl75L.js">
-    <link rel="modulepreload" crossorigin href="./assets/session-store-BTrXVfP6.js">
-    <link rel="stylesheet" crossorigin href="./assets/theme-CKz1Sopm.css">
+    <script type="module" crossorigin src="./assets/admin-yXmzyUHt.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/theme-DQ0UZAFP.js">
+    <link rel="stylesheet" crossorigin href="./assets/theme-D5DVmmmR.css">
   </head>
   <body class="app-body text-slate-800 dark:text-slate-100">
     <main class="mx-auto min-h-screen max-w-7xl p-4 md:p-8">
@@ -31,14 +30,22 @@
             <h1 class="text-2xl font-bold md:text-3xl">Panel de administración</h1>
             <p id="admin-subtitle" class="mt-2 text-slate-300">Cargando instituto... | Registro del uso de recursos</p>
           </div>
-          <div class="flex items-center gap-2 text-slate-300">
-            <span class="text-sm">☀️</span>
-            <label class="relative inline-flex cursor-pointer items-center">
-              <input id="theme-toggle-admin" type="checkbox" class="peer sr-only" />
-              <span class="h-6 w-11 rounded-full bg-slate-600 transition peer-checked:bg-indigo-500"></span>
-              <span class="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition peer-checked:translate-x-5"></span>
-            </label>
-            <span class="text-sm">🌙</span>
+          <div class="admin-header-tools">
+            <div class="admin-access-code-block">
+              <p class="admin-access-code-label">Código de acceso de sesión:</p>
+              <button id="access-code-btn" class="admin-access-code-button" type="button">
+                SIN-CODIGO
+              </button>
+            </div>
+            <div class="flex items-center gap-2 text-slate-300">
+              <span class="text-sm">☀️</span>
+              <label class="relative inline-flex cursor-pointer items-center">
+                <input id="theme-toggle-admin" type="checkbox" class="peer sr-only" />
+                <span class="h-6 w-11 rounded-full bg-slate-600 transition peer-checked:bg-indigo-500"></span>
+                <span class="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition peer-checked:translate-x-5"></span>
+              </label>
+              <span class="text-sm">🌙</span>
+            </div>
           </div>
         </div>
       </header>
@@ -183,10 +190,6 @@
 
         <section class="app-card tab-panel rounded-2xl p-5 shadow-sm backdrop-blur md:p-6" data-tab-panel="acceso">
           <div>
-            <p class="mb-2">Código de acceso de sesión:</p>
-            <button id="access-code-btn" class="mb-3 w-full rounded-xl border-2 border-dashed border-slate-400 bg-slate-50 p-4 text-3xl font-extrabold tracking-wider text-slate-900">
-              SIN-CODIGO
-            </button>
             <p>Comparte este enlace para que el alumnado se registre:</p>
             <input id="student-url" readonly />
             <div class="inline-form">

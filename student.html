@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro Alumno | Registro de recursos</title>
+    <title>Registro Estudiante | Registro de recursos</title>
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E"
@@ -18,19 +18,19 @@
         document.documentElement.classList.toggle("dark", isDark);
       })();
     </script>
-    <script type="module" crossorigin src="./assets/student-C_nYfD9F.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/theme-B8HXl75L.js">
-    <link rel="modulepreload" crossorigin href="./assets/session-store-BTrXVfP6.js">
-    <link rel="stylesheet" crossorigin href="./assets/theme-CKz1Sopm.css">
+    <script type="module" crossorigin src="./assets/theme-DQ0UZAFP.js"></script>
+    <script type="module" crossorigin src="./assets/student-main-COjayUn0.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/theme-D5DVmmmR.css">
   </head>
   <body class="app-body text-slate-800 dark:text-slate-100">
-    <main class="mx-auto min-h-screen max-w-6xl p-4 md:p-8">
-      <header class="app-header mb-6 rounded-2xl p-6 text-white shadow-lg">
-        <div class="flex flex-wrap items-start justify-between gap-3">
+    <main class="mx-auto min-h-screen max-w-7xl p-4 md:p-8">
+      <header class="app-header mb-6 rounded-3xl p-6 text-white shadow-lg">
+        <div class="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h1 class="text-2xl font-bold md:text-3xl">Registro de Alumno</h1>
-            <p id="student-subtitle" class="mt-2 text-slate-300">Cargando configuracion...</p>
-            <p class="mt-2 text-xs text-slate-400">
+            <p class="text-xs uppercase tracking-[0.35em] text-sky-200">ERP educativo</p>
+            <h1 class="mt-2 text-2xl font-bold md:text-3xl">Registro de Alumno</h1>
+            <p class="mt-2 max-w-2xl text-sm text-slate-300">
+              Ventana principal para el alumnado con acceso rapido al registro.
             </p>
           </div>
           <div class="flex items-center gap-2 text-slate-300">
@@ -45,25 +45,54 @@
         </div>
       </header>
 
-      <section id="code-gate" class="app-card hidden mx-auto max-w-md rounded-2xl p-6 shadow-sm backdrop-blur">
-        <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Acceso de alumnado</h2>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Introduce el código de 5 dígitos que te ha dado el profesor.</p>
-        <form id="code-gate-form" class="mt-4 space-y-3">
-          <input id="code-gate-input" inputmode="numeric" maxlength="5" placeholder="12345" required class="w-full rounded-lg border border-slate-300 px-3 py-2" />
-          <button type="submit" class="btn primary w-full">Entrar</button>
-        </form>
-        <p id="code-gate-feedback" class="mt-3 text-sm text-slate-600 dark:text-slate-300"></p>
+      <section id="student-landing-hero" class="student-hero app-card rounded-[2rem] p-6 shadow-sm backdrop-blur md:p-8">
+        <div class="student-hero-copy">
+          <p class="student-hero-kicker">Acceso principal del alumnado</p>
+          <h2>Registra tu recurso en menos de un minuto</h2>
+          <p id="student-subtitle" class="student-hero-subtitle">Cargando configuracion...</p>
+          <p class="student-hero-text">
+            Introduce tu codigo, revisa los datos de la sesion y confirma el equipo que estas usando.
+          </p>
+
+          <div class="student-hero-points mt-6">
+            <article class="student-point">
+              <span class="student-point__label">Paso 1</span>
+              <strong>Introduce tu codigo</strong>
+              <p>Accede a la sesion activa con el codigo de 5 digitos.</p>
+            </article>
+            <article class="student-point">
+              <span class="student-point__label">Paso 2</span>
+              <strong>Comprueba tu aula</strong>
+              <p>Verifica docente, curso, asignatura y recurso asignado.</p>
+            </article>
+            <article class="student-point">
+              <span class="student-point__label">Paso 3</span>
+              <strong>Registra incidencias</strong>
+              <p>Indica cualquier problema del equipo antes de enviarlo.</p>
+            </article>
+          </div>
+
+          <section id="code-gate" class="student-gate app-subcard mt-6 hidden rounded-2xl p-6 shadow-sm">
+            <h2 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Acceso de alumnado</h2>
+            <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">Introduce el codigo de 5 digitos que te ha dado el profesor.</p>
+            <form id="code-gate-form" class="mt-4 space-y-3">
+              <input id="code-gate-input" inputmode="numeric" maxlength="5" placeholder="12345" required class="w-full rounded-lg border border-slate-300 px-3 py-2" />
+              <button type="submit" class="btn primary w-full">Entrar</button>
+            </form>
+            <p id="code-gate-feedback" class="mt-3 text-sm text-slate-600 dark:text-slate-300"></p>
+          </section>
+        </div>
       </section>
 
       <dialog id="invalid-code-modal" class="app-modal rounded-2xl border border-slate-300 bg-white p-0 dark:border-slate-700 dark:bg-slate-900">
         <div class="p-6">
-          <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Código no válido</h3>
-          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">El código introducido no existe. Vuelve a introducir un código correcto.</p>
+          <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Codigo no valido</h3>
+          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">El codigo introducido no existe. Vuelve a introducir un codigo correcto.</p>
           <button id="close-invalid-code-modal" class="btn primary mt-4">Reintentar</button>
         </div>
       </dialog>
 
-      <section id="student-session-section" class="app-card session-data rounded-2xl p-5 shadow-sm backdrop-blur md:p-6">
+      <section id="student-session-section" class="app-card session-data mt-6 rounded-2xl p-5 shadow-sm backdrop-blur md:p-6">
         <h2 class="text-lg font-semibold text-blue-950 dark:text-slate-100">Informe de sesion</h2>
         <div class="mt-4 grid gap-3 md:grid-cols-3">
           <article class="app-subcard rounded-lg p-4">
@@ -118,16 +147,22 @@
           </label>
 
           <label class="block md:col-span-2">
-            <span class="mb-1 block text-sm font-medium text-blue-950 dark:text-slate-300">Descripción de la incidencia</span>
-            <textarea id="student-incident" name="incident" rows="3" placeholder="Ej: teclado dañado, pantalla con fallo..." class="w-full rounded-lg border border-slate-300 px-3 py-2" disabled></textarea>
+            <span class="mb-1 block text-sm font-medium text-blue-950 dark:text-slate-300">Descripcion de la incidencia</span>
+            <textarea id="student-incident" name="incident" rows="3" placeholder="Ej: teclado danado, pantalla con fallo..." class="w-full rounded-lg border border-slate-300 px-3 py-2" disabled></textarea>
           </label>
 
           <button type="submit" class="btn primary md:col-span-2">
-            Registrar Recurso
+            Registrar recurso
           </button>
         </form>
         <p id="student-feedback" class="mt-3 text-sm text-slate-600 dark:text-slate-300"></p>
       </section>
+
+      <div id="student-admin-footer" class="student-admin-footer">
+        <a href="./admin.html" class="student-admin-link">
+          Panel de administración
+        </a>
+      </div>
     </main>
   </body>
 </html>
